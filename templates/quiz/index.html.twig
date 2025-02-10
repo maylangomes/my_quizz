@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des Quiz {% endblock %}
+
+{% block body %}
+    <h1>Liste des Quiz</h1>
+    {% if allQuizz is empty %}
+        <p>Aucun quiz disponible pour le moment.</p>
+    {% else %}
+        <ul>
+            {% for quiz in allQuizz %}
+                <li>
+                    <a href="{{ path('show_quiz', { id: quiz.id }) }}">{{ quiz.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
