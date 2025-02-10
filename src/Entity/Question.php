@@ -19,8 +19,8 @@ class Question
     #[ORM\Column(length: 255)]
     private ?string $answer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'questions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Quiz::class, inversedBy: 'questions')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Quiz $quiz = null;
 
     public function getId(): ?int
@@ -36,7 +36,6 @@ class Question
     public function setQuestion(string $question): static
     {
         $this->question = $question;
-
         return $this;
     }
 
@@ -48,7 +47,6 @@ class Question
     public function setAnswer(string $answer): static
     {
         $this->answer = $answer;
-
         return $this;
     }
 
@@ -60,7 +58,6 @@ class Question
     public function setQuiz(?Quiz $quiz): static
     {
         $this->quiz = $quiz;
-
         return $this;
     }
 }
