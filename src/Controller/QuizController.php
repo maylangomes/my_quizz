@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class QuizController extends AbstractController
 {
-    #[Route('/quiz', name: 'app_quiz')]
+    #[Route('/', name: 'quiz')]
     public function index(QuizRepository $quizRepository): Response
     {
         $allQuizz = $quizRepository->findAll();
