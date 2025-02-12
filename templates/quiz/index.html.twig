@@ -10,9 +10,12 @@
         <ul>
             {% for quiz in allQuizz %}
                 <li>
-                    <a href="{{ path('show_quiz', { id: quiz.id }) }}">{{ quiz.title }}</a>
+                    <a href="{{ path('quiz_question', { quizId: quiz.id, questionIndex: 0 }) }}">{{ quiz.title }}</a>
                 </li>
             {% endfor %}
         </ul>
+    {% endif %}
+    {% if app.user %}
+        <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Résultats du Quiz {% endblock %}
+
+{% block body %}
+    <h1>Résultats du Quiz : {{ quiz.title }}</h1>
+    <a href="{{ path('quiz') }}" class="btn btn-primary">Retour aux quiz</a>
+{% endblock %}

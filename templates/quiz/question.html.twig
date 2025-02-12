@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Question {{ questionIndex + 1 }} / {{ totalQuestions }} {% endblock %}
+
+{% block body %}
+    <h1>{{ quiz.title }}</h1>
+    <p><strong>Question {{ questionIndex + 1 }} / {{ totalQuestions }}</strong></p>
+
+    <form method="post">
+        <p>{{ question.question }}</p>
+
+        {% for option in options %}
+            <div>
+                <input type="radio" id="option_{{ loop.index }}" name="answer" value="{{ option }}" required>
+                <label for="option_{{ loop.index }}">{{ option }}</label>
+            </div>
+        {% endfor %}
+
+        <button type="submit">Valider</button>
+    </form>
+
+    {% if isCorrect is not null %}
+        {% if isCorrect %}
+            <p style="color: green;">✅ Bonne réponse !</p>
+        {% else %}
+            <p style="color: red;">❌ Mauvaise réponse. La bonne réponse était : <strong>{{ question.answer }}</strong></p>
+        {% endif %}
+
+        {% if questionIndex + 1 < totalQuestions %}
+            <a href="{{ path('quiz_question', { quizId: quiz.id, questionIndex: questionIndex + 1 }) }}" class="btn btn-primary">Suivant</a>
+        {% else %}
+            <a href="{{ path('quiz_results', { quizId: quiz.id }) }}" class="btn btn-success">Voir les résultats</a>
+        {% endif %}
+    {% endif %}
+
+    <a href="{{ path('quiz') }}">Retour à la liste des quiz</a>
+{% endblock %}

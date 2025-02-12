@@ -23,6 +23,9 @@ class Question
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Quiz $quiz = null;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $options = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +61,17 @@ class Question
     public function setQuiz(?Quiz $quiz): static
     {
         $this->quiz = $quiz;
+        return $this;
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    public function setOptions(array $options): static
+    {
+        $this->options = $options;
         return $this;
     }
 }
