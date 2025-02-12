@@ -4,5 +4,6 @@
 
 {% block body %}
     <h1>Résultats du Quiz : {{ quiz.title }}</h1>
+    <p>Score : {{ score }} / {{ totalQuestions }}</p>
     <a href="{{ path('quiz') }}" class="btn btn-primary">Retour aux quiz</a>
 {% endblock %}
