@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Quiz{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau Quiz</h1>
+
+    <form method="post">
+        <label for="title">Titre du Quiz :</label>
+        <input type="text" name="title" id="title" required>
+
+        <label for="description">Description :</label>
+        <input type="text" name="description" id="description" required>
+
+        <h2>Questions :</h2>
+        <div id="questions-container">
+            {% for i in 0..19 %}
+                <div class="question-block">
+                    <label>Question {{ i + 1 }} :</label>
+                    <input type="text" name="questions[{{ i }}][question]">
+
+                    <label>Réponse correcte :</label>
+                    <input type="text" name="questions[{{ i }}][answer]">
+
+                    <label>Options (séparées par une virgule) :</label>
+                    <input type="text" name="questions[{{ i }}][options]">
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Créer le quiz</button>
+    </form>
+
+    <a href="{{ path('quiz') }}">Retour aux quiz</a>
+{% endblock %}

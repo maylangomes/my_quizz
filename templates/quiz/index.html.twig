@@ -15,7 +15,10 @@
             {% endfor %}
         </ul>
     {% endif %}
+
+    <a href="{{ path('quiz_create') }}">Créer un quiz</a>
+
     {% if app.user %}
-        <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
+        <a href="{{ path('app_logout') }}">Déconnexion</a>
     {% endif %}
 {% endblock %}

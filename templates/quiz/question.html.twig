@@ -21,15 +21,15 @@
 
     {% if isCorrect is not null %}
         {% if isCorrect %}
-            <p style="color: green;">✅ Bonne réponse !</p>
+            <p style="color: green;">Bonne réponse !</p>
         {% else %}
-            <p style="color: red;">❌ Mauvaise réponse. La bonne réponse était : <strong>{{ question.answer }}</strong></p>
+            <p style="color: red;">Mauvaise réponse. La bonne réponse était : {{ question.answer }}</p>
         {% endif %}
 
         {% if questionIndex + 1 < totalQuestions %}
-            <a href="{{ path('quiz_question', { quizId: quiz.id, questionIndex: questionIndex + 1 }) }}" class="btn btn-primary">Suivant</a>
+            <a href="{{ path('quiz_question', { quizId: quiz.id, questionIndex: questionIndex + 1 }) }}">Suivant</a>
         {% else %}
-            <a href="{{ path('quiz_results', { quizId: quiz.id }) }}" class="btn btn-success">Voir les résultats</a>
+            <a href="{{ path('quiz_results', { quizId: quiz.id }) }}">Voir les résultats</a>
         {% endif %}
     {% endif %}
 

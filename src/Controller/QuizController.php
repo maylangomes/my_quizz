@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,6 +82,9 @@ final class QuizController extends AbstractController
         $score = $session->get('score', 0);
         $totalQuestions = $session->get('totalQuestions', 1);
 
+        $session->remove('score');
+        $session->remove('totalQuestions');
+
         return $this->render('quiz/results.html.twig', [
             'quiz' => $quiz,
             'score' => $score,
@@ -88,5 +92,38 @@ final class QuizController extends AbstractController
         ]);
     }
 
+    #[Route('/quiz/new', name: 'quiz_create', methods: ['GET', 'POST'])]
+    public function createQuiz(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if ($request->isMethod('POST')) {
+            $title = $request->request->get('title');
+            $description = $request->request->get('description');
+            $questionsData = $request->request->all('questions');
+
+            $quiz = new Quiz();
+            $quiz->setTitle($title);
+            $quiz->setDescription($description);
+
+            foreach ($questionsData as $questionData) {
+                if (!empty($questionData['question']) && !empty($questionData['answer'])) {
+                    $question = new Question();
+                    $question->setQuestion($questionData['question']);
+                    $question->setAnswer($questionData['answer']);
+                    $question->setOptions(explode(',', $questionData['options'] ?? ''));
+                    $question->setQuiz($quiz);
+
+                    $entityManager->persist($question);
+                }
+            }
+
+            $entityManager->persist($quiz);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('quiz');
+        }
+
+        return $this->render('quiz/create.html.twig');
+    }
     
+     
 }
