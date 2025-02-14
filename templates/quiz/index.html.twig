@@ -16,6 +16,14 @@
         </ul>
     {% endif %}
 
+    <p class="mt-3">
+        <a href="{{ path('app_register') }}">Register</a>
+    </p>
+
+    <p class="mt-3">
+        <a href="{{ path('app_login') }}">Login</a>
+    </p>
+
     <a href="{{ path('quiz_create') }}">Créer un quiz</a>
 
     {% if app.user %}
